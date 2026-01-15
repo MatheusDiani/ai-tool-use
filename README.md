@@ -183,6 +183,13 @@ Durante o desenvolvimento deste projeto, aprendi:
    - **CloudFront**: URL pública
    - **Cognito**: Autenticação de usuários
 
+6. **Infraestrutura como Código**: Utilizaria **Terraform** ou **AWS CDK** para provisionar e gerenciar a infraestrutura de forma automatizada e versionada.
+
+7. **CI/CD com GitHub Actions**: Criaria pipelines de integração e deploy contínuo para:
+   - Rodar testes automatizados a cada pull request
+   - Deploy automático para ambiente de staging/produção
+   - Facilitar a manutenção e evolução do projeto
+
 ## 👤 Autor
 
 Matheus Diani
