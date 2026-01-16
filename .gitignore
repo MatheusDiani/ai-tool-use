@@ -50,3 +50,5 @@ packaged.yaml
 # Logs
 logs/
 *.log
+
+RESPONSE.md

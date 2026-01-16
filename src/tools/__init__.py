@@ -1,7 +1,3 @@
-"""
-Ferramentas disponíveis para o agente.
-"""
-
 from .math_tools import get_math_tools
 from .search_tools import get_search_tools
 

@@ -10,31 +10,32 @@ from src.agent import create_agent
 
 
 def main():
+    """Main CLI function."""
     try:
         agent = create_agent()
     except Exception as e:
-        print(f"❌ Erro: {e}")
+        print(f"❌ Error: {e}")
         return
     
     while True:
         try:
-            user_input = input("\n👤 Você: ").strip()
+            user_input = input("\n👤 You: ").strip()
             
             if not user_input:
                 continue
             
-            if user_input.lower() in ["sair", "exit", "quit"]:
-                print("👋 Até logo!")
+            if user_input.lower() in ["exit", "quit"]:
+                print("👋 Goodbye!")
                 break
             
             response = agent.run(user_input)
-            print(f"\n🤖 Assistente: {response}")
+            print(f"\n🤖 Assistant: {response}")
             
         except KeyboardInterrupt:
-            print("\n👋 Até logo!")
+            print("\n👋 Goodbye!")
             break
         except Exception as e:
-            print(f"❌ Erro: {e}")
+            print(f"❌ Error: {e}")
 
 
 if __name__ == "__main__":

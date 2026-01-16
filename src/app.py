@@ -32,6 +32,7 @@ st.markdown("""
 
 
 def init_session_state():
+    """Initializes session state."""
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "agent" not in st.session_state:
@@ -43,35 +44,37 @@ def init_session_state():
 
 
 def load_agent():
+    """Loads the agent if not already loaded."""
     if st.session_state.agent is None and st.session_state.agent_error is None:
         try:
-            with st.spinner("🔄 Carregando agente..."):
+            with st.spinner("🔄 Loading agent..."):
                 st.session_state.agent = create_agent(st.session_state.session_id)
         except Exception as e:
             st.session_state.agent_error = str(e)
 
 
 def render_sidebar():
+    """Renders the sidebar."""
     with st.sidebar:
-        st.markdown("## 🛠️ Ferramentas")
+        st.markdown("## 🛠️ Tools")
         st.markdown("""
-        - `add(a, b)` - Soma
-        - `subtract(a, b)` - Subtração  
-        - `multiply(a, b)` - Multiplicação
-        - `search_web(query)` - Busca
+        - `add(a, b)` - Addition
+        - `subtract(a, b)` - Subtraction  
+        - `multiply(a, b)` - Multiplication
+        - `search_web(query)` - Search
         """)
         
         st.divider()
         
-        st.markdown("## 💡 Exemplos")
+        st.markdown("## 💡 Examples")
         
-        st.markdown("**Matemática:**")
-        st.code("Quanto é 125 + 37?", language=None)
-        st.code("Calcule 500 - 123", language=None)
+        st.markdown("**Math:**")
+        st.code("What is 125 + 37?", language=None)
+        st.code("Calculate 500 - 123", language=None)
         
-        st.markdown("**Pesquisa:**")
-        st.code("Pesquise sobre inteligência artificial", language=None)
-        st.code("Quais são as últimas notícias de tecnologia?", language=None)
+        st.markdown("**Search:**")
+        st.code("Search about Barack Obama", language=None)
+        st.code("What are the latest tech news?", language=None)
         
         st.divider()
         
@@ -88,12 +91,13 @@ def render_sidebar():
         st.divider()
         st.caption("**Llama 3.3 70B** via Groq")
         
-        if st.button("🗑️ Limpar"):
+        if st.button("🗑️ Clear"):
             st.session_state.messages = []
             st.rerun()
 
 
 def render_chat():
+    """Renders the chat area."""
     st.markdown('<h1 class="main-header">🤖 AI Tool Use</h1>', unsafe_allow_html=True)
     st.caption("LlamaIndex • Function Calling • Groq")
     
@@ -103,22 +107,24 @@ def render_chat():
         st.error(f"❌ {st.session_state.agent_error}")
         return
     
+    # Display message history
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
     
-    if prompt := st.chat_input("Digite sua pergunta..."):
+    # User input
+    if prompt := st.chat_input("Type your question..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
         with st.chat_message("user"):
             st.markdown(prompt)
         
         with st.chat_message("assistant"):
-            with st.spinner("🤔 Pensando..."):
+            with st.spinner("🤔 Thinking..."):
                 try:
                     response = st.session_state.agent.run(prompt)
                 except Exception as e:
-                    response = f"❌ Erro: {str(e)}"
+                    response = f"❌ Error: {str(e)}"
                 
                 st.markdown(response)
         
@@ -126,6 +132,7 @@ def render_chat():
 
 
 def main():
+    """Main Streamlit function."""
     init_session_state()
     load_agent()
     render_sidebar()

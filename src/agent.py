@@ -14,13 +14,15 @@ MODEL_NAME = "llama-3.3-70b-versatile"
 
 
 class LoggedAgentWrapper:
+    """Wrapper that adds logging to the agent."""
+    
     def __init__(self, agent: ReActAgent, model: str, logger: AgentLogger):
         self.agent = agent
         self.model = model
         self.logger = logger
     
     async def run_async(self, message: str) -> str:
-        """Executa o agente e retorna a resposta."""
+        """Executes the agent and returns the response."""
         self.logger.start_interaction(message)
         
         try:
@@ -45,16 +47,17 @@ class LoggedAgentWrapper:
             raise
     
     def run(self, message: str) -> str:
-        """Executa síncronamente."""
+        """Executes synchronously."""
         return asyncio.run(self.run_async(message))
 
 
 def create_agent(session_id: Optional[str] = None) -> LoggedAgentWrapper:
-    """Cria o agente ReAct com LlamaIndex e Groq."""
+    """Creates the ReAct agent with LlamaIndex and Groq."""
     api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
-        raise ValueError("GROQ_API_KEY não encontrada.")
+        raise ValueError("GROQ_API_KEY not found.")
     
+    # Create logger and inject into tools
     logger = get_logger(session_id)
     set_math_logger(logger)
     set_search_logger(logger)
@@ -64,6 +67,7 @@ def create_agent(session_id: Optional[str] = None) -> LoggedAgentWrapper:
         api_key=api_key,
     )
     
+    # Collect all tools
     tools = []
     
     math_tools = get_math_tools()
@@ -78,6 +82,6 @@ def create_agent(session_id: Optional[str] = None) -> LoggedAgentWrapper:
         llm=llm,
     )
     
-    print(f"✅ Agente criado - Sessão: {logger.session_id}")
+    print(f"✅ Agent created - Session: {logger.session_id}")
     
     return LoggedAgentWrapper(agent, MODEL_NAME, logger)

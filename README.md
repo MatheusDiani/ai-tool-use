@@ -1,83 +1,83 @@
-# 🤖 AI Tool Use - LlamaIndex com Function Calling
+# 🤖 AI Tool Use - LlamaIndex with Function Calling
 
-Um projeto demonstrando o uso do LlamaIndex com ferramentas personalizadas (function calling) e integração com Groq e Tavily.
+A project demonstrating the use of LlamaIndex with custom tools (function calling) and integration with Groq and Tavily.
 
-## ✨ Funcionalidades
+## ✨ Features
 
-- 🧮 **Operações Matemáticas**: Soma, subtração e multiplicação via function calling
-- 🔍 **Busca na Internet**: Integração com Tavily para pesquisas em tempo real
-- 🚀 **Modelo**: Llama 3.3 70B Versatile via Groq
-- 💻 **Interface Web**: UI interativa com Streamlit
-- 📝 **Logging**: Sistema de logs em JSON para análise das interações
+- 🧮 **Mathematical Operations**: Addition, subtraction and multiplication via function calling
+- 🔍 **Web Search**: Tavily integration for real-time searches
+- 🚀 **Model**: Llama 3.3 70B Versatile via Groq
+- 💻 **Web Interface**: Interactive UI with Streamlit
+- 📝 **Logging**: JSON logging system for interaction analysis
 
-## 🛠️ Tecnologias
+## 🛠️ Technologies
 
-- [LlamaIndex](https://docs.llamaindex.ai/) - Framework para aplicações LLM
-- [Groq](https://groq.com/) - Inferência com LPU
-- [Tavily](https://tavily.com/) - API de busca para IA
-- [Streamlit](https://streamlit.io/) - Framework para interfaces web
+- [LlamaIndex](https://docs.llamaindex.ai/) - LLM application framework
+- [Groq](https://groq.com/) - LPU inference
+- [Tavily](https://tavily.com/) - Search API for AI
+- [Streamlit](https://streamlit.io/) - Web interface framework
 
-## 🧠 Lógica de Implementação
+## 🧠 Implementation Logic
 
-### Como o Agente Decide Quando Usar Ferramentas
+### How the Agent Decides When to Use Tools
 
-O projeto utiliza o **ReActAgent** do LlamaIndex, que implementa o padrão ReAct (Reasoning + Acting). A lógica funciona assim:
+The project uses **ReActAgent** from LlamaIndex, which implements the ReAct pattern (Reasoning + Acting). The logic works as follows:
 
-1. **Recebe a pergunta** do usuário
-2. **Analisa o contexto** usando o LLM (Llama 3.3 70B)
-3. **Decide automaticamente**:
-   - Se for uma pergunta matemática → usa as ferramentas `add`, `subtract` ou `multiply`
-   - Se precisar de informações atuais → usa a ferramenta `search_web`
-   - Se for uma pergunta de conhecimento geral → responde diretamente com o modelo
+1. **Receives the question** from the user
+2. **Analyzes the context** using the LLM (Llama 3.3 70B)
+3. **Automatically decides**:
+   - If it's a math question → uses `add`, `subtract` or `multiply` tools
+   - If it needs current information → uses `search_web` tool
+   - If it's a general knowledge question → responds directly with the model
 
-### Por que Groq?
+### Why Groq?
 
-O Groq foi escolhido pela sua baixa latência de inferência. Utilizando a tecnologia LPU (Language Processing Unit), o Groq oferece respostas significativamente mais rápidas comparado a outras APIs, proporcionando uma experiência mais fluida para o usuário.
+Groq was chosen for its low latency inference. Using LPU (Language Processing Unit) technology, Groq offers significantly faster responses compared to other APIs, providing a smoother user experience.
 
-### Interface Visual
+### Visual Interface
 
-Foi criada uma **interface web com Streamlit** para facilitar os testes por usuários não técnicos. A interface permite:
-- Enviar perguntas de forma intuitiva via chat
-- Visualizar as respostas em tempo real
+A **Streamlit web interface** was created to facilitate testing by non-technical users. The interface allows:
+- Sending questions intuitively via chat
+- Viewing responses in real-time
 
-### Exemplo de Fluxo
-
-```
-Usuário: "Quanto é 128 vezes 46?"
-    ↓
-Agente analisa → Detecta operação matemática
-    ↓
-Chama tool: multiply(128, 46)
-    ↓
-Recebe resultado: 5888
-    ↓
-Responde: "O resultado de 128 × 46 é 5888."
-```
+### Flow Example
 
 ```
-Usuário: "Quem foi Albert Einstein?"
+User: "What is 128 times 46?"
     ↓
-Agente analisa → Pergunta de conhecimento geral
+Agent analyzes → Detects mathematical operation
     ↓
-Responde diretamente com base no conhecimento do modelo
+Calls tool: multiply(128, 46)
+    ↓
+Receives result: 5888
+    ↓
+Responds: "The result of 128 × 46 is 5888."
 ```
 
-## 📋 Pré-requisitos
+```
+User: "Who was Albert Einstein?"
+    ↓
+Agent analyzes → General knowledge question
+    ↓
+Responds directly based on model knowledge
+```
 
-- Python 3.10 ou superior
-- Conta no [Groq](https://console.groq.com/) para obter API key
-- Conta no [Tavily](https://tavily.com/) para obter API key (opcional)
+## 📋 Prerequisites
 
-## 🚀 Instalação
+- Python 3.10 or higher
+- [Groq](https://console.groq.com/) account to get API key
+- [Tavily](https://tavily.com/) account to get API key (optional)
 
-### 1. Clone o repositório
+## 🚀 Installation
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/MatheusDiani/ai-tool-use.git
 cd ai-tool-use
 ```
 
-### 2. Crie e ative o ambiente virtual
+### 2. Create and activate virtual environment
 
 **Windows:**
 ```bash
@@ -91,106 +91,106 @@ python -m venv venv
 source venv/bin/activate
 ```
 
-### 3. Instale as dependências
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-> ⚠️ A instalação pode demorar alguns minutos devido às dependências do LlamaIndex.
+> ⚠️ Installation may take a few minutes due to LlamaIndex dependencies.
 
-### 4. Configure as variáveis de ambiente
+### 4. Configure environment variables
 
-Crie um arquivo chamado `.env` na raiz do projeto (use o `.env.example` como referência):
+Create a file named `.env` in the project root (use `.env.example` as reference):
 
 ```bash
 cp .env.example .env
 ```
 
-Depois edite o arquivo `.env` com suas chaves:
+Then edit the `.env` file with your keys:
 
 ```env
-GROQ_API_KEY=sua_chave_groq_aqui
-TAVILY_API_KEY=sua_chave_tavily_aqui
+GROQ_API_KEY=your_groq_key_here
+TAVILY_API_KEY=your_tavily_key_here
 ```
 
-## 💻 Uso
+## 💻 Usage
 
-### Interface Streamlit
+### Streamlit Interface
 
 ```bash
 streamlit run src/app.py
 ```
 
-Acesse `http://localhost:8501` no seu navegador.
+Access `http://localhost:8501` in your browser.
 
-## 📝 Exemplos de Prompts
+## 📝 Prompt Examples
 
-| Tipo | Prompt |
+| Type | Prompt |
 |------|--------|
-| Soma | "Quanto é 15 + 27?" |
-| Subtração | "Calcule 100 - 45" |
-| Multiplicação | "Quanto é 8 vezes 12?" |
-| Busca | "Pesquise sobre Barack Obama" |
+| Addition | "What is 15 + 27?" |
+| Subtraction | "Calculate 100 - 45" |
+| Multiplication | "What is 8 times 12?" |
+| Search | "Search about Barack Obama" |
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 ai-tool-use/
-├── .env.example          # Template de variáveis de ambiente
-├── .gitignore            # Arquivos ignorados pelo Git
-├── README.md             # Documentação
-├── requirements.txt      # Dependências
-├── logs/                 # Logs das interações (JSON)
+├── .env.example          # Environment variables template
+├── .gitignore            # Files ignored by Git
+├── README.md             # Documentation
+├── requirements.txt      # Dependencies
+├── logs/                 # Interaction logs (JSON)
 └── src/
     ├── __init__.py
-    ├── app.py            # Interface Streamlit
-    ├── agent.py          # Configuração do ReActAgent
-    ├── logger.py         # Sistema de logging
+    ├── app.py            # Streamlit interface
+    ├── agent.py          # ReActAgent configuration
+    ├── logger.py         # Logging system
     └── tools/
         ├── __init__.py
-        ├── math_tools.py   # Ferramentas: add, subtract, multiply
-        └── search_tools.py # Ferramenta: search_web (Tavily)
+        ├── math_tools.py   # Tools: add, subtract, multiply
+        └── search_tools.py # Tool: search_web (Tavily)
 ```
 
-## 📚 Aprendizados
+## 📚 Lessons Learned
 
-Durante o desenvolvimento deste projeto, aprendi:
+During the development of this project, I learned:
 
-- Como funciona o padrão **ReAct** (Reasoning + Acting) para agentes de IA
-- Integração do **LlamaIndex** com diferentes LLMs via Groq
-- Implementação de **function calling** com ferramentas personalizadas
-- Uso da **Tavily API** para busca de informações em tempo real
+- How the **ReAct** pattern (Reasoning + Acting) works for AI agents
+- **LlamaIndex** integration with different LLMs via Groq
+- **Function calling** implementation with custom tools
+- Using the **Tavily API** for real-time information search
 
-## 🔮 O Que Faria Diferente com Mais Tempo
+## 🔮 What I Would Do Differently with More Time
 
-1. **Definição do Problema**: Definiria melhor o escopo, se seria um agente somente para cálculos ou para tarefas mais amplas, e quais tipos de operações matemáticas seriam suportadas (divisão, potenciação, raiz quadrada, etc.).
+1. **Problem Definition**: Better define the scope - whether it's an agent only for calculations or broader tasks, and what types of mathematical operations would be supported (division, exponentiation, square root, etc.).
 
-2. **Análise de Soluções**: Mapearia todas as possíveis formas de resolver o problema e, se dentro de um time, conversaria com uma pessoa mais sênior sobre os caminhos propostos. Caso contrário, usaria uma LLM para analisar os prós e contras de cada abordagem.
+2. **Solution Analysis**: Map all possible ways to solve the problem and, if in a team, discuss with a senior engineer about the proposed approaches. Otherwise, use an LLM to analyze the pros and cons of each approach.
 
-3. **Planejamento com IA**: Usaria uma IDE com IA integrada para planejar e implementar uma primeira versão estruturada do projeto.
+3. **Planning with AI**: Use an AI-integrated IDE to plan and implement a structured first version of the project.
 
-4. **Avaliação e Métricas**: Criaria um banco de perguntas e respostas de referência para avaliar o output do agente. Mediria:
-   - Taxa de acerto no acionamento de ferramentas
-   - Precisão das respostas matemáticas
-   - Qualidade das buscas
-   - Pesquisaria métricas específicas para avaliar esse tipo de aplicação com LLM
+4. **Evaluation and Metrics**: Create a question-answer benchmark to evaluate the agent's output. Measure:
+   - Tool activation accuracy rate
+   - Mathematical response precision
+   - Search quality
+   - Research specific metrics for evaluating this type of LLM application
 
-5. **Arquitetura Escalável na AWS**: Para uma primeira versão, configuraria:
-   - **DynamoDB**: Armazenar metadados (ID da sessão, timestamp, custo de tokens, mensagens)
-   - **S3**: Hospedar o frontend estático
-   - **Lambda**: Processar as requisições do agente
-   - **CloudFront**: URL pública
-   - **Cognito**: Autenticação de usuários
+5. **Scalable AWS Architecture**: For a first version, would configure:
+   - **DynamoDB**: Store metadata (session ID, timestamp, token cost, messages)
+   - **S3**: Host static frontend
+   - **Lambda**: Process agent requests
+   - **CloudFront**: Public URL
+   - **Cognito**: User authentication
 
-6. **Infraestrutura como Código**: Utilizaria **Terraform** ou **AWS CDK** para provisionar e gerenciar a infraestrutura de forma automatizada e versionada.
+6. **Infrastructure as Code**: Use **Terraform** or **AWS CDK** to provision and manage infrastructure in an automated and versioned way.
 
-7. **CI/CD com GitHub Actions**: Criaria pipelines de integração e deploy contínuo para:
-   - Rodar testes automatizados a cada pull request
-   - Deploy automático para ambiente de staging/produção
-   - Facilitar a manutenção e evolução do projeto
+7. **CI/CD with GitHub Actions**: Create integration and continuous deployment pipelines to:
+   - Run automated tests on each pull request
+   - Automatic deploy to staging/production environment
+   - Facilitate project maintenance and evolution
 
-## 👤 Autor
+## 👤 Author
 
 Matheus Diani
 

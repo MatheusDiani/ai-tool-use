@@ -1,60 +1,60 @@
 from llama_index.core.tools import FunctionTool
 
-# Referência global ao logger (será injetado pelo agent)
+# Global reference to logger (injected by agent)
 _tool_logger = None
 
 
 def set_tool_logger(logger):
-    """Define o logger para as ferramentas."""
+    """Sets the logger for the tools."""
     global _tool_logger
     _tool_logger = logger
 
 
 def _log_tool_call(name: str, args: dict, result):
-    """Registra uma chamada de ferramenta se o logger estiver disponível."""
+    """Logs a tool call if logger is available."""
     if _tool_logger:
         _tool_logger.log_tool_call(name, args, result)
 
 
 def add(a: float, b: float) -> float:
-    """Soma dois números."""
+    """Adds two numbers."""
     result = a + b
     _log_tool_call("add", {"a": a, "b": b}, result)
     return result
 
 
 def subtract(a: float, b: float) -> float:
-    """Subtrai o segundo número do primeiro."""
+    """Subtracts the second number from the first."""
     result = a - b
     _log_tool_call("subtract", {"a": a, "b": b}, result)
     return result
 
 
 def multiply(a: float, b: float) -> float:
-    """Multiplica dois números."""
+    """Multiplies two numbers."""
     result = a * b
     _log_tool_call("multiply", {"a": a, "b": b}, result)
     return result
 
 
 def get_math_tools() -> list[FunctionTool]:
-    """Retorna ferramentas matemáticas para o agente."""
+    """Returns mathematical tools for the agent."""
     add_tool = FunctionTool.from_defaults(
         fn=add,
         name="add",
-        description="Soma dois números. Use quando precisar calcular a adição de valores."
+        description="Adds two numbers. Use when you need to calculate the sum of values."
     )
     
     subtract_tool = FunctionTool.from_defaults(
         fn=subtract,
         name="subtract",
-        description="Subtrai o segundo número do primeiro. Use para calcular diferenças."
+        description="Subtracts the second number from the first. Use to calculate differences."
     )
     
     multiply_tool = FunctionTool.from_defaults(
         fn=multiply,
         name="multiply",
-        description="Multiplica dois números. Use para calcular produtos."
+        description="Multiplies two numbers. Use to calculate products."
     )
     
     return [add_tool, subtract_tool, multiply_tool]
